@@ -1,7 +1,9 @@
 
 <div align="center">
   <h1>Thermo Fisher Badge 2019</h1>
-
+  [:crystal_ball:Puzzle Sumbit Awnsers / View Solution](https://forms.gle/YPb5huNXZmUNNtqC8)
+  [:crystal_ball:Puzzle Sumbit Awnsers / View Solution](https://forms.gle/YPb5huNXZmUNNtqC8)
+    [:crystal_ball:Puzzle Sumbit Awnsers / View Solution](https://forms.gle/YPb5huNXZmUNNtqC8)
 </div>
 
 

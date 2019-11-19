@@ -1,13 +1,11 @@
 
 <div align="center">
   <h1>Thermo Fisher Badge 2019</h1>
-<br>
+</div>
  :crystal_ball:[Puzzle Sumbit Awnsers / View Solution](https://forms.gle/YPb5huNXZmUNNtqC8)
  :nut_and_bolt:[PCB Soldering](TODO)
  :minidisc:[Firmware](https://github.com/thorgod/ThermoFisherBadge2019/)
  :package: [PCB Design](https://forms.gle/YPb5huNXZmUNNtqC8)
-</div>
-
 
 Board Design, Program, and Assembly by Michael Leuer 
 

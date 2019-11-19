@@ -1,9 +1,11 @@
 
 <div align="center">
   <h1>Thermo Fisher Badge 2019</h1>
-  [:crystal_ball:Puzzle Sumbit Awnsers / View Solution](https://forms.gle/YPb5huNXZmUNNtqC8)
-  [:crystal_ball:Puzzle Sumbit Awnsers / View Solution](https://forms.gle/YPb5huNXZmUNNtqC8)
-    [:crystal_ball:Puzzle Sumbit Awnsers / View Solution](https://forms.gle/YPb5huNXZmUNNtqC8)
+<br>
+ :crystal_ball:[Puzzle Sumbit Awnsers / View Solution](https://forms.gle/YPb5huNXZmUNNtqC8)
+ :nut_and_bolt:[PCB Soldering](TODO)
+ :minidisc:[Firmware](https://github.com/thorgod/ThermoFisherBadge2019/)
+ :package: [PCB Design](https://forms.gle/YPb5huNXZmUNNtqC8)
 </div>
 
 

@@ -38,11 +38,12 @@ https://github.com/jjshortcut/PockeTetris/ <br/>
 - 🔥 OLED Images
 - ⚡️ Attiny85 Atmel Chip
 - 😍 Tetris 
-- 💪 EPROM Text 
+- 💪 EPROM 
     - Save Name 
     - Save High Score
 - 📝 Battery Monitoring 
-- 😱 Tetris
+- 😱 Atari Fonts
+- :godmode: 99.9% Flash Ram Used (8 bytes left.)
 
 # QUICK USAGE GUIDE
 ```

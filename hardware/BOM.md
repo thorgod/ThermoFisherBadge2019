@@ -66,7 +66,7 @@ MIT Licence
 
 
 - 1 x OLED
-
+    - 128x32 OLED Display. 
 
 - Programmer for Attiny85 (only one)
 

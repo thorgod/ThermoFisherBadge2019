@@ -9,7 +9,7 @@
 // The horizontal width of the playing area
 #define HORIZ 5
 // The vertical visible space of the playing area
-#define VERTDRAW 19
+#define VERTDRAW 30
 // The size of the array of blocks (some are outside visible area to allow them to drop in from off screen)
 #define VERTMAX 24
 

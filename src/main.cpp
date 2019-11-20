@@ -141,7 +141,7 @@ unsigned int readVcc()
 #else
   ADMUX = _BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1);
 #endif
-
+  delay(2);
   //_delay_ms(100); // Wait for Vref to settle
   ADCSRA |= _BV(ADSC); // Start conversion
   while (bit_is_set(ADCSRA, ADSC))
@@ -198,9 +198,11 @@ void checkMode()
     TinyOLED.ssd1306_char_f8x8(75, 0, "BAT MV");
     TinyOLED.ssd1306_char_f8x8(0, 2, "BY MIKE LEUER");
 
-    displayScore(readVcc(), 0, 117);
+    while(true){
+      displayScore(readVcc(), 0, 117);
 
-    delay(2000);
+      delay(200);
+    }
   }
 }
 void showScreen()

@@ -19,6 +19,7 @@
 
 > Feel free to skip directly to Buttons with this link
 
+[Go directlyl to soldering buttons](#Making-Buttons-Work)
 
 
 ## Soldering 101

@@ -1,15 +1,15 @@
 #/bin/bash
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m'
 
 #Set Fuses
 # -B4 is nessecery to set the bit clock in order to set fuses for new attiny's.
-avrdude -c usbtiny -p t85 -u -U lfuse:w:0x62:m -U hfuse:w:0xDF:m -U efuse:w:0xFF:m -B4 || (echo "${RED}Failed to set fuses!${NC}\n\n"; exit 1);
+avrdude -c usbtiny -p t85 -u -U lfuse:w:0x62:m -U hfuse:w:0xDF:m -U efuse:w:0xFF:m -B4
 
-echo "\n\n${GREEN}Fuses set!${NC}\n\n"
+echo "Fuses set!"
 
 #Burn Firmware
-avrdude -c usbtiny -p t85 -u -U flash:w:./.pio/build/attiny85/firmware.hex || (echo "${RED}Failed to burn firmware!${NC}\n\n"; exit 1);
+avrdude -c usbtiny -p t85 -u -U flash:w:./.pio/build/attiny85/firmware.hex 
 
-echo "\n\n${GREEN}Thermo Badge flashed!${NC}\n\n"
+echo "Thermo Badge flashed!"
+echo ""
+echo ""
+read -p "It finished press Any Key [Enter]"

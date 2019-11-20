@@ -34,3 +34,9 @@ https://oshpark.com/shared_projects/Q3p591F6
 <img src="https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/8a477da6db4c1c878bf2dddf7847318c.png">
 
 <img src="https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/74715465d474f9708d0b7933d6b577b8.png">
+
+
+<img src="https://mikes3ds.com/public/badge/schem.png" width="700px">
+
+
+To view full PCB Design email me. 

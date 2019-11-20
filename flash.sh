@@ -5,11 +5,11 @@ NC='\033[0m'
 
 #Set Fuses
 # -B4 is nessecery to set the bit clock in order to set fuses for new attiny's.
-avrdude -c usbasp -p t85 -u -U lfuse:w:0xE2:m -U hfuse:w:0xDF:m -U efuse:w:0xFF:m -B4 || (echo "${RED}Failed to set fuses!${NC}\n\n"; exit 1);
+avrdude -c usbtiny -p t85 -u -U lfuse:w:0x62:m -U hfuse:w:0xDF:m -U efuse:w:0xFF:m -B4 || (echo "${RED}Failed to set fuses!${NC}\n\n"; exit 1);
 
 echo "\n\n${GREEN}Fuses set!${NC}\n\n"
 
 #Burn Firmware
-avrdude -c usbtiny -p t85 -u -U flash:w:./.pioenvs/attiny85/firmware.hex || (echo "${RED}Failed to burn firmware!${NC}\n\n"; exit 1);
+avrdude -c usbtiny -p t85 -u -U flash:w:./.pio/build/attiny85/firmware.hex || (echo "${RED}Failed to burn firmware!${NC}\n\n"; exit 1);
 
-echo "\n\n${GREEN}Electrocard flashed!${NC}\n\n"
+echo "\n\n${GREEN}Thermo Badge flashed!${NC}\n\n"

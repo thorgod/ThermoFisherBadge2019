@@ -9,16 +9,16 @@
 // The horizontal width of the playing area
 #define HORIZ 5
 // The vertical visible space of the playing area
-#define VERTDRAW 30
+#define VERTDRAW 19
 // The size of the array of blocks (some are outside visible area to allow them to drop in from off screen)
 #define VERTMAX 24
 
 // The horizontal position where pieces begin
 #define STARTX 0
 // The vertical position where pieces begin
-#define STARTY 30
+#define STARTY 19
 // What level does the game start on
-#define STARTLEVEL 40
+#define STARTLEVEL 20
 // The multiplying factor that sets how the speed scales with level (one level increment for every row cleared)
 #define LEVELFACTOR 4
 // The number of milliseconds before each drop (baseline)

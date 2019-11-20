@@ -912,4 +912,5 @@ void displayScoreScreen()
   {
     TinyOLED.ssd1306_char_f8x8(0, 2, "NEWHIGHSCORE-");
   }
+  delay(2000);
 }

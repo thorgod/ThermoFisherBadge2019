@@ -6,20 +6,24 @@
  :crystal_ball: 
  [Puzzle Sumbit Awnsers / View Solution](https://forms.gle/YPb5huNXZmUNNtqC8)
  :nut_and_bolt: 
- [PCB Soldering](TODO)
+ [PCB Soldering](./hardware/SOLDERING.md)
  :minidisc: 
  [Firmware](https://github.com/thorgod/ThermoFisherBadge2019/)
+ :eggplant:
+ [PCB Design](./hardware/PCB.md)
  :package: 
- [PCB Design](https://forms.gle/YPb5huNXZmUNNtqC8)
-
+ [BOM](./hardware/BOM.md)
 </div>
+<img src="https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/8a477da6db4c1c878bf2dddf7847318c.png">
 
-Board Design, Program, and Assembly by Michael Leuer 
+<img src="https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/74715465d474f9708d0b7933d6b577b8.png">
 
+Board Design, Program, and Assembly by Michael Leuer  <br/>
 MIT Licence 
 
+***
 
-Based on the following sources.
+Code Based on the following sources.
 
 https://github.com/MichMich/Electrocard <br/>
 https://github.com/richardkchapman/TinyOLED<br/>

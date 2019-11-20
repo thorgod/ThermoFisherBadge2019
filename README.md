@@ -10,7 +10,7 @@
  :minidisc: 
  [Firmware](https://github.com/thorgod/ThermoFisherBadge2019/)
  :eggplant:
- [PCB Design](./hardware/PCB.md)
+ [PCB Order](./hardware/PCB.md)
  :package: 
  [BOM](./hardware/BOM.md)
 </div>

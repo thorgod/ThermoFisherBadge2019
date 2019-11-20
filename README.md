@@ -2,10 +2,7 @@
 <div align="center">
   <h1>Thermo Fisher Badge 2019</h1>
   
-  
-
-</div>
- :crystal_ball: 
+   :crystal_ball: 
  [Puzzle Sumbit Awnsers / View Solution](https://forms.gle/YPb5huNXZmUNNtqC8)
  :nut_and_bolt: 
  [PCB Soldering](./hardware/SOLDERING.md)
@@ -15,6 +12,9 @@
  [PCB Design](./hardware/PCB.md)
  :package: 
  [BOM](./hardware/BOM.md)
+
+</div>
+
  
 <img src="https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/8a477da6db4c1c878bf2dddf7847318c.png">
 

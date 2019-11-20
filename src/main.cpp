@@ -37,14 +37,14 @@ static const uint8_t ghostout[16] PROGMEM = {
 static const uint8_t startDecode[11] PROGMEM = {0, 1, 1, 2, 3, 4, 4, 5, 6, 7, 8};
 static const uint8_t endDecode[11] PROGMEM = {1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 8};
 
-void drawGameScreen(int startCol, int endCol, int startRow, int endRow, uint8_t mode);
-void displayScore(int score, int xpos, int y);
+void drawGameScreen(int8_t startCol, int8_t endCol, int8_t startRow, int8_t endRow, uint8_t mode);
+void displayScore(int score, uint8_t xpos, uint8_t y);
 
 // Function prototypes - tetris-specific
 void playTetris(void);
 void handleInput(void);
 
-void drawScreen(int startCol, int endCol, int startRow, int endRow, uint8_t mode);
+void drawScreen(int8_t startCol, int8_t endCol, int8_t startRow, int8_t endRow, uint8_t mode);
 
 uint8_t readBlockArray(uint8_t x, uint8_t y);
 void writeblockArray(uint8_t x, uint8_t y, bool value);
@@ -77,11 +77,7 @@ pieceSpace oldPiece = {0};     // Buffer to hold the current piece whilst its ma
 pieceSpace ghostPiece = {0};   // Current ghost piece
 
 unsigned long moveTime = 0;         // Baseline time for current move
-volatile unsigned long keyTime = 0; // Baseline time for current keypress
 
-volatile uint8_t rendering = 0; // Holds the mode of the last keypress (for debounce and stuff)
-
-volatile uint8_t keyLock = 0; // Holds the mode of the last keypress (for debounce and stuff)
 
 uint8_t nextBlockBuffer[8][2]; // The little image of the next block
 uint8_t nextPiece = 0;         // The identity of the next piece
@@ -89,20 +85,26 @@ uint8_t blockArray[HORIZ][3];  // The uint8_t-array of blocks
 uint8_t ghostArray[HORIZ][3];  // The uint8_t-array of ghost pieces
 bool stopAnimate;              // True when the game is running
 
-int lastGhostRow = 0; // Buffer to hold previous ghost position - for accurate drawing
-uint8_t score = 0;    // Score buffer
-uint8_t topScore = 0; // High score buffer
+int8_t lastGhostRow = 0; // Buffer to hold previous ghost position - for accurate drawing
+uint8_t score = 0;       // Score buffer
+uint8_t topScore = 0;    // High score buffer
 
 bool ghost = 1; // Is the ghost active?
 
 int level = 0; // Current level (increments once per cleared line)
 
-volatile uint8_t screenMode = 0; // 0 Rotation, 1 Tetris, 2 Programing Name,
+
 
 uint8_t text[16] = {0}; //Variable that stores text to scroll
 
+volatile uint8_t rendering = 0; // Makes sure to lock screen. So that intrupt does not effect current loop
+
 volatile uint8_t currentPositionText = 0; //Current Position on editing (For screenMode 2)
 volatile uint8_t rotationNumber = 0;      //0 Thermo Logo, 1 Text+Re:Inv, 2 AWS Logo, 3 Text+Thermo Fisher
+volatile uint8_t screenMode = 0; // 0 Rotation, 1 Tetris, 2 Programing Name,
+
+volatile unsigned long keyTime = 0; // Baseline time for current keypress
+volatile uint8_t keyLock = 0; // Holds the mode of the last keypress (for debounce and stuff)
 
 // Arduino stuff
 void setup()
@@ -242,11 +244,12 @@ void showScreen()
 //Main Loop
 void loop()
 {
-      screenMode = 1;
-    TinyOLED.ssd1306_fillscreen(0x00);
-    playTetris();
-    screenMode = 0;
   /*
+  screenMode = 1;
+  TinyOLED.ssd1306_fillscreen(0x00);
+  playTetris();
+  screenMode = 0;
+ */
   showScreen();
 
   if (rotationNumber == 3)
@@ -258,7 +261,7 @@ void loop()
     rotationNumber++;
     checkMode();
     delay(500);
-  }*/
+  }
 }
 
 uint8_t readBlockArray(uint8_t x, uint8_t y)
@@ -494,9 +497,9 @@ uint8_t checkCollision(void)
   uint8_t pieceRow = 0;
   uint8_t pieceColumn = 0;
 
-  for (int c = currentPiece.column; c < currentPiece.column + 4; c++)
+  for (int8_t c = currentPiece.column; c < currentPiece.column + 4; c++)
   {
-    for (int r = currentPiece.row; r < currentPiece.row + 4; r++)
+    for (int8_t r = currentPiece.row; r < currentPiece.row + 4; r++)
     {
       if (currentPiece.blocks[pieceColumn][pieceRow])
       {
@@ -626,7 +629,7 @@ void handleInput(void)
   delay(30);
 }
 
-void displayScore(int score, int xpos, int y)
+void displayScore(int score, uint8_t xpos, uint8_t y)
 {
   uint8_t scoreOut[6];
   scoreOut[3] = (score % 10);
@@ -646,7 +649,7 @@ void displayScore(int score, int xpos, int y)
   }
 }
 
-void drawGameScreen(int startCol, int endCol, int startRow, int endRow, uint8_t mode)
+void drawGameScreen(int8_t startCol, int8_t endCol, int8_t startRow, int8_t endRow, uint8_t mode)
 {
   drawScreen(startCol, endCol, startRow, endRow, mode);
 
@@ -663,7 +666,7 @@ void drawGameScreen(int startCol, int endCol, int startRow, int endRow, uint8_t 
   }
 }
 
-void drawScreen(int startCol, int endCol, int startRow, int endRow, uint8_t mode)
+void drawScreen(int8_t startCol, int8_t endCol, int8_t startRow, int8_t endRow, uint8_t mode)
 {
   uint8_t temp = 0;
   uint8_t separator = 0;

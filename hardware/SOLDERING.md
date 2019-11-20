@@ -63,6 +63,7 @@ NOTE: Do not add that much solder to center pad, you want to keep the height on 
 
 ##### Part 2: Tint
 Add solder to top and bottom of holder.
+
 <img src="https://mikes3ds.com/public/badge/4.jpg" width="500px">
 
 ##### Part 3: Tap Down Holder + Solder
@@ -72,14 +73,17 @@ Direction does matter!!!!!!
 ```
 
 Tape down battery holder in correct position, it will make it easer to work with.
+
 <img src="https://mikes3ds.com/public/badge/5.jpg" width="500px">
 
 Solder it down. + Add extra solder if needed
+
 <img src="https://mikes3ds.com/public/badge/6.jpg" width="500px">
 
 ```
  Important: ADD MORE SOLDER, over SOLDER top. This is what holds the badge, we need to make sure its secure. See image below
 ```
+
 <img src="https://mikes3ds.com/public/badge/7.jpg" width="500px">
 
 
@@ -87,28 +91,37 @@ Solder it down. + Add extra solder if needed
 
 
 Place switch on back.
+
 <img src="https://mikes3ds.com/public/badge/9.jpg" width="500px">
+
 Turn over and solder.
+
 <img src="https://mikes3ds.com/public/badge/10.jpg" width="500px">
 
 ### DIP
 Add DIP on the top. (Do not add Attiny chip tell done)
 Direction does not matter.
+
 <img src="https://mikes3ds.com/public/badge/11.jpg" width="500px">
+
 Solder back all 8 pins
+
 <img src="https://mikes3ds.com/public/badge/12.jpg" width="500px">
 
 ### OLED Display
 
 Put OLED Display on top
+
 <img src="https://mikes3ds.com/public/badge/13.jpg" width="500px">
 
 
 Turn over and cut extra pin length down to board. (Leave a tiny bit sticking out)
+
 <img src="https://mikes3ds.com/public/badge/14.jpg" width="500px">
 <img src="https://mikes3ds.com/public/badge/15.jpg" width="500px">
 
 Solder Pins
+
 <img src="https://mikes3ds.com/public/badge/16.jpg" width="500px">
 
 # Making Buttons Work
@@ -123,22 +136,32 @@ The jumper is required to turn on buttons. (* You wont be able to program direct
 
 #### Part 2: 3xResistors
 Bend the resistors (Direction does not matter)
+
 <img src="https://mikes3ds.com/public/badge/19.jpg" width="500px">
 
 Bend the resistors makes it easier to insert(Direction does not matter)
+
 <img src="https://mikes3ds.com/public/badge/20.jpg" width="500px">
 <img src="https://mikes3ds.com/public/badge/21.jpg" width="500px">
+
 Push as far as you can get them into the board. (I placed them on the back)
+
 <img src="https://mikes3ds.com/public/badge/22.jpg" width="500px">
 
-Cut the extra living a tiny bit sticking out
+Cut the extra living a tiny bit sticking out 
+
 <img src="https://mikes3ds.com/public/badge/23.jpg" width="500px">
+
 Cut the extra living a tiny bit sticking out
+
 <img src="https://mikes3ds.com/public/badge/24.jpg" width="500px">
+
 Solder resistor
+
 <img src="https://mikes3ds.com/public/badge/25.jpg" width="500px">
 
 Do the same for the other two (See images)
+
 <img src="https://mikes3ds.com/public/badge/27.jpg" width="500px">
 
 <img src="https://mikes3ds.com/public/badge/28.jpg" width="500px">
@@ -148,6 +171,7 @@ Do the same for the other two (See images)
 <img src="https://mikes3ds.com/public/badge/32.jpg" width="500px">
 <img src="https://mikes3ds.com/public/badge/33.jpg" width="500px">
 <img src="https://mikes3ds.com/public/badge/34.jpg" width="500px">
+
 #### Part 3: Surface Mount Buttons
 
 ```
@@ -159,13 +183,16 @@ Direction does not matter, try your best to get them in the center;however, as l
 <img src="https://mikes3ds.com/public/badge/35.jpg" width="500px">
 
 Add some solder to ONE pad.
+
 <img src="https://mikes3ds.com/public/badge/36.jpg" width="500px">
 
 Place the small button on the pad, and solder
+
 <img src="https://mikes3ds.com/public/badge/37.jpg" width="500px">
 <img src="https://mikes3ds.com/public/badge/38.jpg" width="500px">
 
 Add solder and solder to the rest of the pads.
+
 <img src="https://mikes3ds.com/public/badge/39.jpg" width="500px">
 <img src="https://mikes3ds.com/public/badge/40.jpg" width="500px">
 <img src="https://mikes3ds.com/public/badge/41.jpg" width="500px">
@@ -197,6 +224,7 @@ Direction is important look at the dot.
 Direction is important look at the dot.
 ```
 Grab your chip, Attiny85, bend the pins slighly so its easier to put in the dip.
+
 <img src="https://mikes3ds.com/public/badge/50.jpg" width="500px">
 
 

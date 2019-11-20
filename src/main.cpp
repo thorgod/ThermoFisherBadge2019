@@ -1,6 +1,4 @@
-// Designed by Michael Leuer 
-
-
+// Designed by Michael Leuer
 
 #include <Arduino.h>
 
@@ -70,20 +68,20 @@ void drawPiece(uint8_t action);
 struct pieceSpace
 {
   uint8_t blocks[4][4];
-  int row;
-  int column;
+  int8_t row;
+  int8_t column;
 };
 
 pieceSpace currentPiece = {0}; // The piece in play
 pieceSpace oldPiece = {0};     // Buffer to hold the current piece whilst its manipulated
 pieceSpace ghostPiece = {0};   // Current ghost piece
 
-unsigned long moveTime = 0; // Baseline time for current move
-unsigned long keyTime = 0;  // Baseline time for current keypress
+unsigned long moveTime = 0;         // Baseline time for current move
+volatile unsigned long keyTime = 0; // Baseline time for current keypress
 
 volatile uint8_t rendering = 0; // Holds the mode of the last keypress (for debounce and stuff)
 
-uint8_t keyLock = 0; // Holds the mode of the last keypress (for debounce and stuff)
+volatile uint8_t keyLock = 0; // Holds the mode of the last keypress (for debounce and stuff)
 
 uint8_t nextBlockBuffer[8][2]; // The little image of the next block
 uint8_t nextPiece = 0;         // The identity of the next piece
@@ -92,8 +90,8 @@ uint8_t ghostArray[HORIZ][3];  // The uint8_t-array of ghost pieces
 bool stopAnimate;              // True when the game is running
 
 int lastGhostRow = 0; // Buffer to hold previous ghost position - for accurate drawing
-int score = 0;        // Score buffer
-int topScore = 0;     // High score buffer
+uint8_t score = 0;    // Score buffer
+uint8_t topScore = 0; // High score buffer
 
 bool ghost = 1; // Is the ghost active?
 
@@ -194,11 +192,13 @@ void checkMode()
   }
   else if (keyLock == 3 && digitalRead(BUTTON_ONE) == PRESSON && millis() - keyTime > 300)
   {
+    cli();
     TinyOLED.ssd1306_fillscreen(0x00);
     TinyOLED.ssd1306_char_f8x8(75, 0, "BAT MV");
     TinyOLED.ssd1306_char_f8x8(0, 2, "BY MIKE LEUER");
 
-    while(true){
+    while (true)
+    {
       displayScore(readVcc(), 0, 117);
 
       delay(200);
@@ -242,6 +242,11 @@ void showScreen()
 //Main Loop
 void loop()
 {
+      screenMode = 1;
+    TinyOLED.ssd1306_fillscreen(0x00);
+    playTetris();
+    screenMode = 0;
+  /*
   showScreen();
 
   if (rotationNumber == 3)
@@ -253,7 +258,7 @@ void loop()
     rotationNumber++;
     checkMode();
     delay(500);
-  }
+  }*/
 }
 
 uint8_t readBlockArray(uint8_t x, uint8_t y)

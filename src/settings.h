@@ -1,3 +1,11 @@
+
+// What level does the game start on
+#define STARTLEVEL 100
+// The multiplying factor that sets how the speed scales with level (one level increment for every row cleared)
+#define LEVELFACTOR 4
+// The number of milliseconds before each drop (baseline)
+#define DROPDELAY 200
+
 // Mode settings for functions with multiple purposes
 #define NORMAL 0
 #define GHOST 1
@@ -17,18 +25,12 @@
 #define STARTX 0
 // The vertical position where pieces begin
 #define STARTY 19
-// What level does the game start on
-#define STARTLEVEL 20
-// The multiplying factor that sets how the speed scales with level (one level increment for every row cleared)
-#define LEVELFACTOR 4
-// The number of milliseconds before each drop (baseline)
-#define DROPDELAY 200
 
-// Defines for OLED output
-
+//What port the button is on
 #define BUTTON_ZERO 1
 #define BUTTON_ONE 3
 #define BUTTON_TWO 4
 
+//What is on vs off. (Pullup or Pulldown)
 #define PRESSON 0x0
 #define PRESSOFF 0x1

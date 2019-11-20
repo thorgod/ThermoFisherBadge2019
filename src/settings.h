@@ -24,10 +24,6 @@
 // The number of milliseconds before each drop (baseline)
 #define DROPDELAY 200
 
-// Routines to set and clear bits (used in the sleep code)
-#define cbi(sfr, bit) (_SFR_uint8_t(sfr) &= ~_BV(bit))
-#define sbi(sfr, bit) (_SFR_uint8_t(sfr) |= _BV(bit))
-
 // Defines for OLED output
 
 #define BUTTON_ZERO 1

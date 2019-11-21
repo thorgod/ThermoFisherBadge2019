@@ -319,7 +319,7 @@ void checkMode()
     {
       TinyOLED.ssd1306_fillscreen(0x00);
       TinyOLED.ssd1306_char_f8x16(9, 0, " SETTINGS ");
-      TinyOLED.ssd1306_char_f8x16(8, 2, ".T SCORE   BAT.");
+      TinyOLED.ssd1306_char_f8x16(8, 2, ".T SCORE  BAT.");
 
       displayScore(System.readVcc(), 0, 117);
       displayScore(topScore, 0, 0);
@@ -700,7 +700,7 @@ void handleInput(void)
   //checks if button is simply pressed once and not held down
   if (digitalRead(BUTTON_ZERO) == PRESSOFF && digitalRead(BUTTON_ONE) == PRESSOFF && digitalRead(BUTTON_TWO) == PRESSOFF)
   {
-    if (keyLock == 2 && millis() - keyTime < 300)
+    if (keyLock == 2 && millis() - keyTime < 100)
     { // rotate piece = 2
       drawPiece(ERASE);
       rotatePiece();
@@ -987,7 +987,16 @@ void playTetris(void)
 
       while ((signed)(millis() - moveTime) < (signed)(DROPDELAY - level * LEVELFACTOR))
       {
-
+        if(digitalRead(BUTTON_ONE) == PRESSON && digitalRead(BUTTON_TWO) == PRESSON){
+          cli();
+          drawPiece(ERASE);
+          movePieceDown();
+          drawPiece(DRAW);
+          drawGameScreen(currentPiece.column, currentPiece.column + 4, currentPiece.row, currentPiece.row + 5, PARTIAL);
+          sei();
+        }
+       
+        
         // Wait for next drop
       }
     }

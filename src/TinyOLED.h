@@ -59,8 +59,8 @@ public:
     void ssd1306_xfer_stop();
     void ssd1306_xfer_start();
     void ssd1306_init();
-    void ssd1306_char_f8x8(uint8_t x, uint8_t y, const char ch[]);
-    void charTest(uint8_t x, uint8_t y, const uint8_t ch[]);
+    void ssd1306_char_f8x16(uint8_t x, uint8_t y, const char ch[]);
+    void ssd1306_index_8x16(uint8_t x, uint8_t y, const uint8_t ch[]);
 };
 
 extern tinyOLED TinyOLED;

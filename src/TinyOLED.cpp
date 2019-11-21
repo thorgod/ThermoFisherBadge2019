@@ -14,7 +14,7 @@
 // Standard Arduino headers
 #include <TinyOLED.h>
 
-void tinyOLED::ssd1306_char_f8x8(uint8_t x, uint8_t y, const char ch[])
+void tinyOLED::ssd1306_char_f8x16(uint8_t x, uint8_t y, const char ch[])
 {
     uint8_t c, j = 0;
 
@@ -51,7 +51,7 @@ void tinyOLED::ssd1306_char_f8x8(uint8_t x, uint8_t y, const char ch[])
     }
 }
 
-void tinyOLED::charTest(uint8_t x, uint8_t y, const uint8_t ch[])
+void tinyOLED::ssd1306_index_8x16(uint8_t x, uint8_t y, const uint8_t ch[])
 {
     uint8_t j = 0;
 

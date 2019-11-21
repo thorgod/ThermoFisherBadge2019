@@ -1,5 +1,6 @@
 // Designed by Michael Leuer
 
+
 #include <Arduino.h>
 
 #include <TinyOLED.h>
@@ -11,6 +12,8 @@
 #include <images.h>
 #include <settings.h>
 #include <font_score.h>
+
+#include <System.h>
 
 // The bitmaps for the main blocks
 static const int blocks[7] PROGMEM = {
@@ -113,7 +116,8 @@ void setup()
   DDRB = 0b00000000;       // set PB1 as output (for the speaker)
   PCMSK = 0b00011010;      // pin change mask: listen to portb bit 1
   GIMSK |= 0b00100000;     // enable PCINT interrupt
-  MCUCR |= B00000010;      //watch for rising edge
+  MCUCR |= B00000011;      //watch for rising edge
+  // Falling Edge 11, Rising Edge 10, Anychange 01, 00 Low value (Always with my design)
   sei();                   // enable all interrupts
   TinyOLED.ssd1306_init(); // initialise the screen
   keyLock = 0;
@@ -136,33 +140,6 @@ void setup()
   TinyOLED.ssd1306_send_command(bright);
 }
 
-unsigned int readVcc()
-{
-// Read 1.1V reference against AVcc
-// set the reference to Vcc and the measurement to the internal 1.1V reference
-#if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
-  ADMUX = _BV(REFS0) | _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1);
-#elif defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
-  ADMUX = _BV(MUX5) | _BV(MUX0);
-#elif defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__)
-  ADMUX = _BV(MUX3) | _BV(MUX2);
-#else
-  ADMUX = _BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1);
-#endif
-  delay(2);
-  //_delay_ms(100); // Wait for Vref to settle
-  ADCSRA |= _BV(ADSC); // Start conversion
-  while (bit_is_set(ADCSRA, ADSC))
-    ; // measuring
-
-  uint8_t low = ADCL;  // must read ADCL first - it then locks ADCH
-  uint8_t high = ADCH; // unlocks both
-
-  long result = (high << 8) | low;
-
-  result = (1125300L / result); // Calculate Vcc (in mV); 1125300 = 1.1*1023*1000
-  return (unsigned int)result;  // Vcc in millivolts
-}
 
 void checkMode()
 {
@@ -171,9 +148,9 @@ void checkMode()
 
     screenMode = 2;
     TinyOLED.ssd1306_fillscreen(0x00);
-    TinyOLED.charTest(0, 0, text);
+    TinyOLED.ssd1306_index_8x16(0, 0, text);
 
-    TinyOLED.ssd1306_char_f8x8(16, 2, "TXT");
+    TinyOLED.ssd1306_char_f8x16(16, 2, "TXT");
     delay(500);
     //TinyOLED.ssd1306_fillscreen(0x00);
     while (true)
@@ -186,7 +163,7 @@ void checkMode()
         }
 
         //TinyOLED.ssd1306_fillscreen(0x00);
-        TinyOLED.ssd1306_char_f8x8(0, 2, "SAVED");
+        TinyOLED.ssd1306_char_f8x16(0, 2, "SAVED");
         screenMode = 0;
         delay(1000);
         screenMode = 0;
@@ -204,16 +181,25 @@ void checkMode()
   else if (keyLock == 3 && digitalRead(BUTTON_ONE) == PRESSON && millis() - keyTime > 300)
   {
 
-    while (true)
-    {
-      screenMode = 3;
-      TinyOLED.ssd1306_fillscreen(0x00);
-      TinyOLED.ssd1306_char_f8x8(75, 0, "BAT MV");
-      TinyOLED.ssd1306_char_f8x8(0, 2, "BY MIKE LEUER");
-      displayScore(readVcc(), 0, 117);
+    topScore = EEPROM.read(0);
+    topScore = topScore << 8;
+    topScore = topScore | EEPROM.read(1);
+    if(topScore == 0xFF){
+      topScore = 0x00;
+    }
+    screenMode = 3;
 
+    for (uint8_t i; i<20; i++)
+    {
+      TinyOLED.ssd1306_fillscreen(0x00);
+      TinyOLED.ssd1306_char_f8x16(9, 0, " SETTINGS ");
+      TinyOLED.ssd1306_char_f8x16(8, 2, ".SCORE  BAT.");
+
+      displayScore(System.readVcc(), 0, 117);
+      displayScore(topScore, 0, 0);
       delay(1000);
     }
+    screenMode = 0;
   }
 }
 void showScreen()
@@ -226,8 +212,8 @@ void showScreen()
 
   case 1:
     TinyOLED.ssd1306_fillscreen(0x00);
-    TinyOLED.charTest(0, 0, text);
-    TinyOLED.ssd1306_char_f8x8(8, 2, "THERMO FISHER");
+    TinyOLED.ssd1306_index_8x16(0, 0, text);
+    TinyOLED.ssd1306_char_f8x16(8, 2, "THERMO FISHER");
 
     break;
 
@@ -242,8 +228,8 @@ void showScreen()
       {
         break;
       }
-      TinyOLED.charTest(m * 8, 0, text);
-      TinyOLED.ssd1306_char_f8x8(m * 8, 2, "AWS RE.INVENT   ");
+      TinyOLED.ssd1306_index_8x16(m * 8, 0, text);
+      TinyOLED.ssd1306_char_f8x16(m * 8, 2, "AWS RE.INVENT   ");
       checkMode();
       delay(31);
     }
@@ -623,8 +609,8 @@ ISR(PCINT0_vect)
   if (screenMode == 2)
   {
 
-    TinyOLED.charTest(0, 0, text);
-    TinyOLED.ssd1306_char_f8x8((uint8_t)(8 * currentPositionText), 2, "/");
+    TinyOLED.ssd1306_index_8x16(0, 0, text);
+    TinyOLED.ssd1306_char_f8x16((uint8_t)(8 * currentPositionText), 2, "/");
     delay(200);
   }
 }
@@ -947,11 +933,11 @@ void displayScoreScreen()
     newHigh = true;
   }
 
-  TinyOLED.ssd1306_char_f8x8(60, 0, "SCORE.");
+  TinyOLED.ssd1306_char_f8x16(60, 0, "SCORE.");
   displayScore(score, 0, 117);
   if (newHigh)
   {
-    TinyOLED.ssd1306_char_f8x8(0, 2, "NEWHIGHSCORE-");
+    TinyOLED.ssd1306_char_f8x16(0, 2, "NEWHIGHSCORE-");
   }
   delay(2000);
 }

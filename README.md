@@ -51,6 +51,10 @@ https://github.com/jjshortcut/PockeTetris/ <br/>
 ```
 
 ## There are four modes:
+Rotation, Save Txt, Tetris, Settings
+
+<img src="https://mikes3ds.com/public/badge/A.png" width="700px">
+
 ### **Default:** Rotation
 Every 5 seconds it switches between:
 1. Thermo Fisher Logo
@@ -59,6 +63,9 @@ Every 5 seconds it switches between:
 4. Scrolls -> Line1: [Name] Line2: [AWS Re:Invent]
 
 ### **Save Text:** Hold TOP button 
+
+<img src="https://mikes3ds.com/public/badge/C.png" width="700px">
+
 ~5-10 seconds
 
 It will bring up TXT letting you know you can change your text or name.
@@ -73,6 +80,7 @@ The # is under the text indicating what letter you are changing
 
 ### **Tetris:** Hold LEFT button 
 
+<img src="https://mikes3ds.com/public/badge/B.png" width="700px">
 
 It will start tetris. 
 - TOP Button: *Rotates Piece*
@@ -83,7 +91,9 @@ It will start tetris.
 
 
 
-### **Battery Monitoring:** Hold RIGHT button 
+### **Settings/High Score/Battery Monitoring:** Hold RIGHT button 
+
+<img src="https://mikes3ds.com/public/badge/D.png" width="700px">
 
 It will bring up a screen displaying the current battery voltage. It is in MV, a fully charged battery will display 3500mv - it can run down to 800mv I think. (3.5V-.8mv)
 

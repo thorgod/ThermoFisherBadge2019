@@ -22,7 +22,8 @@
 // DATA:    [====      ]  43.6% (used 223 bytes from 512 bytes)
 // PROGRAM: [==========]  99.9% (used 8186 bytes from 8192 bytes)
 // I tried a few times to split it up, but everything I was over 128bytes to 400bytes...over...
-
+//
+// View Readme for information about programing. 
 
 
 

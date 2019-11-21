@@ -1,6 +1,6 @@
 
 // What level does the game start on
-#define STARTLEVEL 100
+#define STARTLEVEL 30
 // The multiplying factor that sets how the speed scales with level (one level increment for every row cleared)
 #define LEVELFACTOR 4
 // The number of milliseconds before each drop (baseline)

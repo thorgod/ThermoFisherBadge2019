@@ -76,8 +76,10 @@ pieceSpace currentPiece = {0}; // The piece in play
 pieceSpace oldPiece = {0};     // Buffer to hold the current piece whilst its manipulated
 pieceSpace ghostPiece = {0};   // Current ghost piece
 
-unsigned long moveTime = 0;         // Baseline time for current move
+unsigned long moveTime = 0; // Baseline time for current move
 
+uint8_t bright = 0x3F;  //How Bright EPROM
+uint8_t inverse = 0x00; //Inverse Screen
 
 uint8_t nextBlockBuffer[8][2]; // The little image of the next block
 uint8_t nextPiece = 0;         // The identity of the next piece
@@ -93,18 +95,16 @@ bool ghost = 1; // Is the ghost active?
 
 int level = 0; // Current level (increments once per cleared line)
 
-
-
 uint8_t text[16] = {0}; //Variable that stores text to scroll
 
 volatile uint8_t rendering = 0; // Makes sure to lock screen. So that intrupt does not effect current loop
 
 volatile uint8_t currentPositionText = 0; //Current Position on editing (For screenMode 2)
 volatile uint8_t rotationNumber = 0;      //0 Thermo Logo, 1 Text+Re:Inv, 2 AWS Logo, 3 Text+Thermo Fisher
-volatile uint8_t screenMode = 0; // 0 Rotation, 1 Tetris, 2 Programing Name,
+volatile uint8_t screenMode = 0;          // 0 Rotation, 1 Tetris, 2 Programing Name,
 
 volatile unsigned long keyTime = 0; // Baseline time for current keypress
-volatile uint8_t keyLock = 0; // Holds the mode of the last keypress (for debounce and stuff)
+volatile uint8_t keyLock = 0;       // Holds the mode of the last keypress (for debounce and stuff)
 
 // Arduino stuff
 void setup()
@@ -126,6 +126,14 @@ void setup()
       text[m] = 0;
     }
   }
+
+  bright = EEPROM.read(18);
+  if (bright == 0xFF)
+  {
+    bright = 0x3F;
+  }
+  TinyOLED.ssd1306_send_command(0x81);
+  TinyOLED.ssd1306_send_command(bright);
 }
 
 unsigned int readVcc()
@@ -181,6 +189,7 @@ void checkMode()
         TinyOLED.ssd1306_char_f8x8(0, 2, "SAVED");
         screenMode = 0;
         delay(1000);
+        screenMode = 0;
         break;
       }
     }
@@ -194,16 +203,16 @@ void checkMode()
   }
   else if (keyLock == 3 && digitalRead(BUTTON_ONE) == PRESSON && millis() - keyTime > 300)
   {
-    cli();
-    TinyOLED.ssd1306_fillscreen(0x00);
-    TinyOLED.ssd1306_char_f8x8(75, 0, "BAT MV");
-    TinyOLED.ssd1306_char_f8x8(0, 2, "BY MIKE LEUER");
 
     while (true)
     {
+      screenMode = 3;
+      TinyOLED.ssd1306_fillscreen(0x00);
+      TinyOLED.ssd1306_char_f8x8(75, 0, "BAT MV");
+      TinyOLED.ssd1306_char_f8x8(0, 2, "BY MIKE LEUER");
       displayScore(readVcc(), 0, 117);
 
-      delay(200);
+      delay(1000);
     }
   }
 }
@@ -531,6 +540,16 @@ ISR(PCINT0_vect)
 
   if (digitalRead(BUTTON_ONE) == PRESSON)
   { //Right
+    if (screenMode == 3)
+    {
+      bright -= 0x20;
+
+      TinyOLED.ssd1306_send_command(0x81);
+      TinyOLED.ssd1306_send_command(bright);
+
+      EEPROM.write(18,bright);
+      delay(10);
+    }
     if (screenMode == 2)
     {
       text[currentPositionText]++;
@@ -542,7 +561,7 @@ ISR(PCINT0_vect)
     if (screenMode == 0)
     {
       rotationNumber++;
-      if (rotationNumber == 4)
+      if (rotationNumber > 2)
       {
         rotationNumber = 0;
       }
@@ -554,6 +573,16 @@ ISR(PCINT0_vect)
   }
   else if (digitalRead(BUTTON_ZERO) == PRESSON)
   { //Up
+    if (screenMode == 3)
+    {
+      bright += 0x20;
+
+      TinyOLED.ssd1306_send_command(0x81);
+      TinyOLED.ssd1306_send_command(bright);
+
+      EEPROM.write(18,bright);
+      delay(10);
+    }
     if (screenMode == 2)
     {
       currentPositionText++;
@@ -569,6 +598,10 @@ ISR(PCINT0_vect)
   }
   else if (digitalRead(BUTTON_TWO) == PRESSON)
   {
+    if (screenMode == 3)
+    {
+      TinyOLED.ssd1306_send_command(0xA7);
+    }
     if (screenMode == 2)
     {
       text[currentPositionText]--;

@@ -179,6 +179,10 @@ Do the same for the other two (See images)
 This babies are small!!! Open them over a desk, do it slowly.
 ```
 
+```
+Nick Rivette, suggests a small dab of super glue to keep in the correct position before soldering. 
+```
+
 Direction does not matter, try your best to get them in the center;however, as long as each pad is soldered to the button you are good. See images.
 
 <img src="https://mikes3ds.com/public/badge/35.jpg" height="400px">

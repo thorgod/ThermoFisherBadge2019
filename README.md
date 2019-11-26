@@ -106,11 +106,13 @@ Battery Life is unknown, but calcutions:
 OLED 19.7mA  (50% Pixels)
 Attiny Mirco Counter 5 mA at 8 MHz
 
-(5+19.7)=30mA
+(5+19.7)=25mA to 30mA  (Guessing)
+
 
 220mAh/30mA= 7.333
+220mAh/24mA= 9.166
 
-### Battery Life is around ~7 Hours
+### Battery Life is around ~7 Hours to 9 Hours
 
 
 # HOW TO PROGRAM

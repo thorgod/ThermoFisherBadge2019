@@ -42,10 +42,11 @@ https://github.com/jjshortcut/PockeTetris/ <br/>
 - 📝 Battery Monitoring 
 - 😱 Atari Fonts
 - :godmode: 99.9% Flash Ram Used (8 bytes left.)
+- ~7 Hours battery life (Guessed)
 
 # QUICK USAGE GUIDE
 ```
-    To be able to switch modes you need to solder the buttons down. View link on how solder buttons.
+    To be able to switch modes you need to solder the buttons down. View link on how to solder buttons.
 ```
 
 ## There are four modes:
@@ -94,6 +95,22 @@ It will start tetris.
 <img src="https://mikes3ds.com/public/badge/D.png" width="700px">
 
 It will bring up a screen displaying the current battery voltage. It is in MV, a fully charged battery will display 3500mv - it can run down to 800mv I think. (3.5V-.8mv)
+
+
+# Battery Life (Replacement)
+
+CR2032 is the type of battery I used. 
+Battery Life is unknown, but calcutions:
+
+220mAh Is battery life.
+OLED 19.7mA  (50% Pixels)
+Attiny Mirco Counter 5 mA at 8 MHz
+
+(5+19.7)=30mA
+
+220mAh/30mA= 7.333
+
+### Battery Life is around ~7 Hours
 
 
 # HOW TO PROGRAM

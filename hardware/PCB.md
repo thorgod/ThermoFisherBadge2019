@@ -15,6 +15,8 @@
  [BOM](BOM.md)
 </div>
 
+<img src="https://mikes3ds.com/public/badge/topbanner.jpg" >
+
 
 Board Design, Program, and Assembly by Michael Leuer  <br/>
 MIT Licence 

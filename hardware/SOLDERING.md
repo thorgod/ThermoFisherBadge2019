@@ -15,6 +15,9 @@
  [BOM](BOM.md)
 </div>
 
+<img src="https://mikes3ds.com/public/badge/topbanner.jpg" >
+
+
 # Soldering Badge
 
 > Feel free to skip directly to Buttons with this link

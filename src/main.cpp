@@ -186,7 +186,7 @@ void setup()
     }
   }
 
-  bright = EEPROM.read(18);
+  bright = EEPROM.read(19);
   if (bright == 0xFF)
   {
     bright = 0x3F;
@@ -194,7 +194,7 @@ void setup()
   TinyOLED.ssd1306_send_command(0x81);
   TinyOLED.ssd1306_send_command(bright);
 
-  inverse = EEPROM.read(19);
+  inverse = EEPROM.read(20);
   if (bright == 0xFF)
   {
     inverse = 0xA6;
@@ -373,7 +373,7 @@ ISR(PCINT0_vect)
       TinyOLED.ssd1306_send_command(0x81);
       TinyOLED.ssd1306_send_command(bright);
 
-      EEPROM.write(18,bright);
+      EEPROM.write(19,bright);
       delay(10);
     }
     if (screenMode == 2)
@@ -399,7 +399,7 @@ ISR(PCINT0_vect)
         inverse = 0xA6;
       }
       TinyOLED.ssd1306_send_command(inverse);
-      EEPROM.write(19,inverse);
+      EEPROM.write(20,inverse);
 
     }
     if (screenMode == 2)

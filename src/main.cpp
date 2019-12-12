@@ -1,14 +1,14 @@
-//. ███╗   ███╗██╗██╗  ██╗███████╗███████╗   
-//. ████╗ ████║██║██║ ██╔╝██╔════╝██╔════╝   
-//. ██╔████╔██║██║█████╔╝ █████╗  ███████╗   
-//. ██║╚██╔╝██║██║██╔═██╗ ██╔══╝  ╚════██║   
-//. ██║ ╚═╝ ██║██║██║  ██╗███████╗███████║   
-//. ╚═╝     ╚═╝╚═╝╚═╝  ╚═╝╚══════╝╚══════╝   
+//. ███╗   ███╗██╗██╗  ██╗███████╗███████╗
+//. ████╗ ████║██║██║ ██╔╝██╔════╝██╔════╝
+//. ██╔████╔██║██║█████╔╝ █████╗  ███████╗
+//. ██║╚██╔╝██║██║██╔═██╗ ██╔══╝  ╚════██║
+//. ██║ ╚═╝ ██║██║██║  ██╗███████╗███████║
+//. ╚═╝     ╚═╝╚═╝╚═╝  ╚═╝╚══════╝╚══════╝
 // Designed by Michael Leuer 2019
-// MIT 
+// MIT
 //
 // This is a custom tiny OLED written for Thermo Fisher Badge.
-// Based on 
+// Based on
 // Based on the following sources.
 // https://github.com/jjshortcut/PockeTetris/
 // https://github.com/MichMich/Electrocard
@@ -23,10 +23,7 @@
 // PROGRAM: [==========]  99.9% (used 8186 bytes from 8192 bytes)
 // I tried a few times to split it up, but everything I was over 128bytes to 400bytes...over...
 //
-// View Readme for information about programing. 
-
-
-
+// View Readme for information about programing.
 
 #include <Arduino.h>
 
@@ -41,7 +38,6 @@
 #include <font_score.h>
 
 #include <System.h>
-
 
 /////////////////////////////////////////////////////////////////////////////
 //  Static Vars
@@ -71,7 +67,6 @@ static const uint8_t ghostout[16] PROGMEM = {
 // Decode lookup to translate block positions to the 8 columns on the screen
 static const uint8_t startDecode[11] PROGMEM = {0, 1, 1, 2, 3, 4, 4, 5, 6, 7, 8};
 static const uint8_t endDecode[11] PROGMEM = {1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 8};
-
 
 /////////////////////////////////////////////////////////////////////////////
 //  Function Def
@@ -112,14 +107,11 @@ void showScreen(void);
 
 uint8_t bright = 0x3F;  //How Bright EPROM
 uint8_t inverse = 0xA6; //Inverse Screen
-uint8_t text[16] = {0}; //Variable that stores text to scroll
-
 
 //Keys
-volatile uint8_t screenMode = 0;          // 0 Rotation, 1 Tetris, 2 Programing Name,
+volatile uint8_t screenMode = 0;    // 0 Rotation, 1 Tetris, 2 Programing Name,
 volatile unsigned long keyTime = 0; // Baseline time for current keypress
 volatile uint8_t keyLock = 0;       // Holds the mode of the last keypress (for debounce and stuff)
-
 
 //Tetris
 
@@ -136,8 +128,6 @@ pieceSpace ghostPiece = {0};   // Current ghost piece
 
 unsigned long moveTime = 0; // Baseline time for current move
 
-
-
 uint8_t nextBlockBuffer[8][2]; // The little image of the next block
 uint8_t nextPiece = 0;         // The identity of the next piece
 uint8_t blockArray[HORIZ][3];  // The uint8_t-array of blocks
@@ -152,13 +142,9 @@ bool ghost = 1; // Is the ghost active?
 
 int level = 0; // Current level (increments once per cleared line)
 
-
-
 volatile uint8_t rendering = 0; // Makes sure to lock screen. So that intrupt does not effect current loop
 
-volatile uint8_t currentPositionText = 0; //Current Position on editing (For screenMode 2)
-volatile uint8_t rotationNumber = 0;      //0 Thermo Logo, 1 Text+Re:Inv, 2 AWS Logo, 3 Text+Thermo Fisher
-
+volatile uint8_t rotationNumber = 0; //0 Thermo Logo, 1 Text+Re:Inv, 2 AWS Logo, 3 Text+Thermo Fisher
 
 /////////////////////////////////////////////////////////////////////////////
 //  Program Start
@@ -168,23 +154,14 @@ volatile uint8_t rotationNumber = 0;      //0 Thermo Logo, 1 Text+Re:Inv, 2 AWS 
 void setup()
 {
   randomSeed(analogRead(1));
-  DDRB = 0b00000000;       // set PB1 as output (for the speaker)
-  PCMSK = 0b00011010;      // pin change mask: listen to portb bit 1
-  GIMSK |= 0b00100000;     // enable PCINT interrupt
-  MCUCR |= B00000010;      //watch for rising edge
+  DDRB = 0b00000000;   // set PB1 as output (for the speaker)
+  PCMSK = 0b00011010;  // pin change mask: listen to portb bit 1
+  GIMSK |= 0b00100000; // enable PCINT interrupt
+  MCUCR |= B00000010;  //watch for rising edge
   // Falling Edge 11, Rising Edge 10, Anychange 01, 00 Low value (Always with my design)
   sei();                   // enable all interrupts
   TinyOLED.ssd1306_init(); // initialise the screen
   keyLock = 0;
-
-  for (uint8_t m = 0; m < 16; m++)
-  {
-    text[m] = EEPROM.read(m + 3);
-    if (text[m] == 0xFF)
-    {
-      text[m] = 0;
-    }
-  }
 
   bright = EEPROM.read(19);
   if (bright == 0xFF)
@@ -200,7 +177,6 @@ void setup()
     inverse = 0xA6;
   }
   TinyOLED.ssd1306_send_command(inverse);
-  
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -214,6 +190,7 @@ void loop()
   if (rotationNumber == 3)
   {
     rotationNumber = 0;
+    delay(500);
   }
   else
   {
@@ -237,7 +214,7 @@ void showScreen()
 
   case 1:
     TinyOLED.ssd1306_fillscreen(0x00);
-    TinyOLED.ssd1306_index_8x16(0, 0, text);
+    TinyOLED.ssd1306_char_f8x16(16, 0, "RYAN SNYDER");
     TinyOLED.ssd1306_char_f8x16(8, 2, "THERMO FISHER");
 
     break;
@@ -247,17 +224,9 @@ void showScreen()
     break;
 
   case 3:
-    for (uint8_t m = 0; m < 16; m++)
-    {
-      if (rotationNumber != 3)
-      {
-        break;
-      }
-      TinyOLED.ssd1306_index_8x16(m * 8, 0, text);
-      TinyOLED.ssd1306_char_f8x16(m * 8, 2, "AWS RE.INVENT   ");
-      checkMode();
-      delay(31);
-    }
+    TinyOLED.ssd1306_fillscreen(0x00);
+    TinyOLED.ssd1306_char_f8x16(16, 0, "RYAN SNYDER");
+    TinyOLED.ssd1306_char_f8x16(14, 2, " VP AND CIO");
     break;
   }
 }
@@ -269,37 +238,9 @@ void showScreen()
 
 void checkMode()
 {
-  //Mode program text
-  if (keyLock == 2 && digitalRead(BUTTON_ZERO) == PRESSON && millis() - keyTime > 300)
-  {
 
-    screenMode = 2;
-    TinyOLED.ssd1306_fillscreen(0x00);
-    TinyOLED.ssd1306_index_8x16(0, 0, text);
-
-    TinyOLED.ssd1306_char_f8x16(16, 2, "TXT");
-    delay(500);
-    //TinyOLED.ssd1306_fillscreen(0x00);
-    while (true)
-    {
-      if (keyLock == 2 && digitalRead(BUTTON_ZERO) == PRESSON && millis() - keyTime > 300)
-      {
-        for (uint8_t m = 0; m < 16; m++)
-        {
-          EEPROM.write(m + 3, text[m]);
-        }
-
-        //TinyOLED.ssd1306_fillscreen(0x00);
-        TinyOLED.ssd1306_char_f8x16(0, 2, "SAVED");
-        screenMode = 0;
-        delay(1000);
-        screenMode = 0;
-        break;
-      }
-    }
-  }
   //Mode Tetris
-  else if (keyLock == 1 && digitalRead(BUTTON_TWO) == PRESSON && millis() - keyTime > 300)
+  if (keyLock == 1 && digitalRead(BUTTON_TWO) == PRESSON && millis() - keyTime > 300)
   {
     screenMode = 1;
     TinyOLED.ssd1306_fillscreen(0x00);
@@ -311,12 +252,13 @@ void checkMode()
   {
 
     topScore = EEPROM.read(0);
-    if(topScore == 0xFF){
+    if (topScore == 0xFF)
+    {
       topScore = 0x00;
     }
     screenMode = 3;
 
-    for (uint8_t i; i<20; i++)
+    for (uint8_t i; i < 20; i++)
     {
       TinyOLED.ssd1306_fillscreen(0x00);
       TinyOLED.ssd1306_char_f8x16(9, 0, " SETTINGS ");
@@ -330,7 +272,6 @@ void checkMode()
   }
 }
 
-
 /////////////////////////////////////////////////////////////////////////////
 // ISR
 // Most imporant method, this handles intrupts from buttons
@@ -343,14 +284,6 @@ ISR(PCINT0_vect)
 
   if (digitalRead(BUTTON_ONE) == PRESSON)
   { //Right
-    if (screenMode == 2)
-    {
-      text[currentPositionText]++;
-      if (text[currentPositionText] > 29)
-      {
-        text[currentPositionText] = 0;
-      }
-    }
     if (screenMode == 0)
     {
       rotationNumber++;
@@ -373,17 +306,8 @@ ISR(PCINT0_vect)
       TinyOLED.ssd1306_send_command(0x81);
       TinyOLED.ssd1306_send_command(bright);
 
-      EEPROM.write(19,bright);
+      EEPROM.write(19, bright);
       delay(10);
-    }
-    if (screenMode == 2)
-    {
-      currentPositionText++;
-      if (currentPositionText == 16)
-      {
-        currentPositionText = 0;
-      }
-      TinyOLED.ssd1306_fillscreen(0x00);
     }
 
     keyLock = 2;
@@ -393,22 +317,16 @@ ISR(PCINT0_vect)
   { //Left
     if (screenMode == 3)
     {
-      if(inverse==0xA6){
+      if (inverse == 0xA6)
+      {
         inverse = 0xA7;
-      } else {
+      }
+      else
+      {
         inverse = 0xA6;
       }
       TinyOLED.ssd1306_send_command(inverse);
-      EEPROM.write(20,inverse);
-
-    }
-    if (screenMode == 2)
-    {
-      text[currentPositionText]--;
-      if (text[currentPositionText] == 0)
-      {
-        text[currentPositionText] = 29;
-      }
+      EEPROM.write(20, inverse);
     }
     keyLock = 1;
     keyTime = millis();
@@ -419,13 +337,6 @@ ISR(PCINT0_vect)
     rendering = 1;
     handleInput();
     rendering = 0;
-  }
-  if (screenMode == 2)
-  {
-
-    TinyOLED.ssd1306_index_8x16(0, 0, text);
-    TinyOLED.ssd1306_char_f8x16((uint8_t)(8 * currentPositionText), 2, "/");
-    delay(200);
   }
 }
 
@@ -693,7 +604,6 @@ uint8_t checkCollision(void)
   }
   return 0;
 }
-
 
 void handleInput(void)
 {
@@ -988,7 +898,8 @@ void playTetris(void)
 
       while ((signed)(millis() - moveTime) < (signed)(DROPDELAY - level * LEVELFACTOR))
       {
-        if(digitalRead(BUTTON_ONE) == PRESSON && digitalRead(BUTTON_TWO) == PRESSON){
+        if (digitalRead(BUTTON_ONE) == PRESSON && digitalRead(BUTTON_TWO) == PRESSON)
+        {
           cli();
           drawPiece(ERASE);
           movePieceDown();
@@ -996,8 +907,7 @@ void playTetris(void)
           drawGameScreen(currentPiece.column, currentPiece.column + 4, currentPiece.row, currentPiece.row + 5, PARTIAL);
           sei();
         }
-       
-        
+
         // Wait for next drop
       }
     }
@@ -1011,7 +921,7 @@ void displayScoreScreen()
 
   bool newHigh = false;
   topScore = EEPROM.read(0);
-  if (score > topScore || topScore ==0xFF)
+  if (score > topScore || topScore == 0xFF)
   {
     topScore = score;
     EEPROM.write(0, score);
